@@ -1,11 +1,13 @@
-package cjl.hycollege.com.coolweather;
+package cjl.hycollege.com.coolweather.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cjl.hycollege.com.coolweather.R;
+import cjl.hycollege.com.coolweather.activity.WeatherActivity;
 import cjl.hycollege.com.coolweather.db.City;
 import cjl.hycollege.com.coolweather.db.County;
 import cjl.hycollege.com.coolweather.db.Province;
@@ -96,6 +100,14 @@ public class ChooseAreFragment extends Fragment {
                 } else if (currntLevel == LEVEL_CITY) {
                     selectdeCity = cityList.get(position);
                     queryCounties();
+                }else if (currntLevel==LEVEL_COUNTY){
+                    String weatherId=countyList.get(position).getWeather_id();
+                    Intent intent=new Intent(getActivity(), WeatherActivity.class);
+                    Log.d("TAG","ChooseAreFragment传入的天气id="+weatherId);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+
                 }
             }
         });
