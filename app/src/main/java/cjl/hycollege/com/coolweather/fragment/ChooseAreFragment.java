@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cjl.hycollege.com.coolweather.R;
+import cjl.hycollege.com.coolweather.activity.MainActivity;
 import cjl.hycollege.com.coolweather.activity.WeatherActivity;
 import cjl.hycollege.com.coolweather.db.City;
 import cjl.hycollege.com.coolweather.db.County;
@@ -102,11 +103,19 @@ public class ChooseAreFragment extends Fragment {
                     queryCounties();
                 }else if (currntLevel==LEVEL_COUNTY){
                     String weatherId=countyList.get(position).getWeather_id();
-                    Intent intent=new Intent(getActivity(), WeatherActivity.class);
-                    Log.d("TAG","ChooseAreFragment传入的天气id="+weatherId);
-                    intent.putExtra("weather_id",weatherId);
-                    startActivity(intent);
-                    getActivity().finish();
+                    if (getActivity() instanceof MainActivity){
+                        Intent intent=new Intent(getActivity(), WeatherActivity.class);
+                        Log.d("TAG","ChooseAreFragment传入的天气id="+weatherId);
+                        intent.putExtra("weather_id",weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if (getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity= (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipe_refresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
+
 
                 }
             }
