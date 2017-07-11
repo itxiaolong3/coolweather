@@ -1,5 +1,6 @@
 package cjl.hycollege.com.coolweather.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -26,8 +27,10 @@ import java.io.IOException;
 import cjl.hycollege.com.coolweather.R;
 import cjl.hycollege.com.coolweather.gson.Forecast;
 import cjl.hycollege.com.coolweather.gson.Weather;
+import cjl.hycollege.com.coolweather.service.AutoUpdateService;
 import cjl.hycollege.com.coolweather.util.HttpUtil;
 import cjl.hycollege.com.coolweather.util.JsonUtilty;
+import cjl.hycollege.com.coolweather.util.LogUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -213,7 +216,7 @@ public class WeatherActivity extends AppCompatActivity {
      */
     private void showWeatherInfo(Weather weather) {
         String cityName = weather.basic.cityName;
-        Log.d("TAG", "获取城市名称" + cityName);
+        LogUtil.d("TAG", "获取城市名称" + cityName);
         String updateTime = weather.basic.update.updateTime.split(" ")[1];
         //Log.d("WeatherActivity", "获取更新时间" + updateTime);
         String degree = weather.now.temperature + "℃";
@@ -225,7 +228,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         forecastLayout.removeAllViews();
         //预告布局嵌套有子view在里面，所以需要获取子view对象再继续获取控件
-        Log.d("TAG", "forecastList大小=" + weather.forecastList.size());
+        LogUtil.d("TAG", "forecastList大小=" + weather.forecastList.size());
         for (Forecast forecast : weather.forecastList) {
             View view = LayoutInflater.from(this)
                     .inflate(R.layout.forecast_item, forecastLayout, false);
@@ -252,6 +255,14 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText.setText(comfort);
         carWashText.setText(carWash);
         sportText.setText(sport);
-        weathearLayout.setVisibility(View.VISIBLE);
+        if (weather!=null&&"ok".equals(weather.status)){
+            weathearLayout.setVisibility(View.VISIBLE);
+            Intent intent=new Intent(this, AutoUpdateService.class);
+            startService(intent);
+        }else {
+            Toast.makeText(WeatherActivity.this, "获取天气信息失败！",
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

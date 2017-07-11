@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,7 @@ import cjl.hycollege.com.coolweather.db.County;
 import cjl.hycollege.com.coolweather.db.Province;
 import cjl.hycollege.com.coolweather.util.HttpUtil;
 import cjl.hycollege.com.coolweather.util.JsonUtilty;
+import cjl.hycollege.com.coolweather.util.LogUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -105,7 +105,7 @@ public class ChooseAreFragment extends Fragment {
                     String weatherId=countyList.get(position).getWeather_id();
                     if (getActivity() instanceof MainActivity){
                         Intent intent=new Intent(getActivity(), WeatherActivity.class);
-                        Log.d("TAG","属于MainActivity传入的天气id="+weatherId);
+                        LogUtil.d("TAG","属于MainActivity传入的天气id="+weatherId);
                         intent.putExtra("weather_id",weatherId);
                         startActivity(intent);
                         getActivity().finish();
