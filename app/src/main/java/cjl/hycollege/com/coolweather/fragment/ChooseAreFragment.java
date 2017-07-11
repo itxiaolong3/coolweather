@@ -105,15 +105,25 @@ public class ChooseAreFragment extends Fragment {
                     String weatherId=countyList.get(position).getWeather_id();
                     if (getActivity() instanceof MainActivity){
                         Intent intent=new Intent(getActivity(), WeatherActivity.class);
-                        Log.d("TAG","ChooseAreFragment传入的天气id="+weatherId);
+                        Log.d("TAG","属于MainActivity传入的天气id="+weatherId);
                         intent.putExtra("weather_id",weatherId);
                         startActivity(intent);
                         getActivity().finish();
+                        /*SharedPreferences.Editor editor = PreferenceManager
+                                .getDefaultSharedPreferences(getActivity()).edit();
+                        editor.putString("weatherid", weatherId);
+                        editor.apply();*/
                     }else if (getActivity() instanceof WeatherActivity){
                         WeatherActivity activity= (WeatherActivity) getActivity();
                         activity.drawerLayout.closeDrawers();
                         activity.swipe_refresh.setRefreshing(true);
+                       /* Log.d("TAG","属于WeatherActivity传入的天气id="+weatherId);
+                        SharedPreferences.Editor editor = PreferenceManager
+                                .getDefaultSharedPreferences(activity).edit();
+                        editor.putString("weatherid", weatherId);
+                        editor.apply();*/
                         activity.requestWeather(weatherId);
+
                     }
 
 
