@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xiaolong="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="cjl.hycollege.com.toggleview.MainActivity">
+    <cjl.hycollege.com.toggleview.ToggleViews
+        android:id="@+id/bt_toggleview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        xiaolong:switch_background="@drawable/switch_background"
+        xiaolong:slide_button="@drawable/slide_button"
+        xiaolong:switch_state="true"/>
+
+</RelativeLayout>

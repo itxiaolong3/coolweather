@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cjl.hycollege.com.coolweather.R;
+import cjl.hycollege.com.coolweather.constant.keyUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences prefs= PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getString("weather",null)!=null){
+        if (prefs.getString(keyUtils.WEATHER,null)!=null){
             Intent intent=new Intent(this,WeatherActivity.class);
             startActivity(intent);
             finish();

@@ -122,7 +122,7 @@ public class ChooseAreFragment extends Fragment {
                                 .getDefaultSharedPreferences(activity).edit();
                         editor.putString("weatherid", weatherId);
                         editor.apply();*/
-                        activity.requestWeather(weatherId);
+                        activity.requestWeather(weatherId," ",false);
 
                     }
 
