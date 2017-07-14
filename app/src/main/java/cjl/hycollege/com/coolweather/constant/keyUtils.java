@@ -31,10 +31,18 @@ public class keyUtils {
     public static String SAVASTATE="savaState";
 
     /**
+     * 保存天气图标id码
+     */
+    public static String CONDIDCONID="condiconId";
+
+    /**
      * @param weatherId 传入的天气id
      * @return 返回"http://guolin.tech/api/weather?cityid="+weatherId+"&key=282e4f2f4b7f49de8f11a2d959150d32";
      */
     public static String weatherUrl(String weatherId) {
         return "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=282e4f2f4b7f49de8f11a2d959150d32";
+    }
+    public static String condCodeIconUrl(String picCode) {
+        return "https://cdn.heweather.com/cond_icon/"+picCode+".png";
     }
 }

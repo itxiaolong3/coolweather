@@ -43,8 +43,26 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
+    int img[] = new int[]{
+            R.drawable.ic100, R.drawable.ic101
+            , R.drawable.ic102, R.drawable.ic103
+            , R.drawable.ic104
+            , R.drawable.ic202, R.drawable.ic205
+            , R.drawable.ic208, R.drawable.ic300
+            , R.drawable.ic301, R.drawable.ic302
+            , R.drawable.ic303, R.drawable.ic304
+            , R.drawable.ic305, R.drawable.ic306
+            , R.drawable.ic307, R.drawable.ic308
+            , R.drawable.ic309, R.drawable.ic310
+            , R.drawable.ic311, R.drawable.ic400
+            , R.drawable.ic401, R.drawable.ic402
+            , R.drawable.ic403, R.drawable.ic404
+            , R.drawable.ic501, R.drawable.ic999
+
+    };
+
     //背景图片
-    private ImageView bingPicImg;
+    private ImageView bingPicImg, cond_img;
     //展示天气信息
     private ScrollView weathearLayout;
 
@@ -65,7 +83,6 @@ public class WeatherActivity extends AppCompatActivity {
     ;
     //记录天气id
     private String mWeatherId;
-
     //弹出设置对话框的view
     private View view;
     private LinearLayout LinePrike;
@@ -80,7 +97,7 @@ public class WeatherActivity extends AppCompatActivity {
         public void run() {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
             String weatherString = prefs.getString(keyUtils.WEATHER, null);
-            if (weatherString!=null){
+            if (weatherString != null) {
                 Weather weather = JsonUtilty.handlWeatherResponse(weatherString);
                 if (weather != null) {
                     showWeatherInfo(weather);
@@ -121,6 +138,8 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText = (TextView) findViewById(R.id.comfort_text);
         carWashText = (TextView) findViewById(R.id.car_wash_text);
         sportText = (TextView) findViewById(R.id.sport_text);
+        //添加天气图标
+        cond_img = (ImageView) findViewById(R.id.img_cond_icon);
         //下拉刷新
         swipe_refresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipe_refresh.setColorSchemeResources(R.color.colorPrimary);
@@ -137,12 +156,11 @@ public class WeatherActivity extends AppCompatActivity {
         } else {
             //没有缓存就查找服务器信息
             mWeatherId = getIntent().getStringExtra("weather_id");
-            //String weather_Id = getIntent().getStringExtra("weather_id");
-            LogUtil.d("TAG", "没缓存");
             //请求数据时先把ScrollView隐藏
             weathearLayout.setVisibility(View.INVISIBLE);
             requestWeather(mWeatherId, "刚刚刷新", true);
         }
+
         //添加背景图片
         bingPicImg = (ImageView) findViewById(R.id.bing_bg_img);
         String bingpic = prefs.getString(keyUtils.BING_PIC, null);
@@ -242,8 +260,8 @@ public class WeatherActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editor.apply();
                 //服务是否再次开启
-                if (getprefs.getBoolean(keyUtils.SAVASTATE,false)){
-                    Intent intent=new Intent(WeatherActivity.this,AutoUpdateService.class);
+                if (getprefs.getBoolean(keyUtils.SAVASTATE, false)) {
+                    Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
                     startService(intent);
                 }
                 dialog.dismiss();
@@ -300,7 +318,7 @@ public class WeatherActivity extends AppCompatActivity {
     public void requestWeather(String weatherId, final String showTostText, final boolean ifshowTost) {
         //key是自己在 和风天气网申请的
         Log.d("TAG", "requestWeather获取的weatherId=" + weatherId);
-        String weatherUrl =keyUtils.weatherUrl(weatherId);
+        String weatherUrl = keyUtils.weatherUrl(weatherId);
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -360,6 +378,11 @@ public class WeatherActivity extends AppCompatActivity {
         titleUpdateTime.setText("更新于" + updateTime);
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
+        //获取图标id
+        //String getCondIconId = weather.now.more.pic_code;
+        int getCondIcomId = Integer.parseInt(weather.now.more.pic_code);
+        LogUtil.d("TAG", "get到的图标id=" + getCondIcomId);
+        getCondIcon(getCondIcomId,cond_img);
 
         forecastLayout.removeAllViews();
         //预告布局嵌套有子view在里面，所以需要获取子view对象再继续获取控件
@@ -370,11 +393,13 @@ public class WeatherActivity extends AppCompatActivity {
             TextView infoText = (TextView) view.findViewById(R.id.info_text);
             TextView maxText = (TextView) view.findViewById(R.id.max_text);
             TextView minText = (TextView) view.findViewById(R.id.min_text);
+            ImageView condIcon= (ImageView) view.findViewById(R.id.img_cond_forecast_icon);
             //Log.d("TAG","预报日期="+forecast.date);
             dataText.setText(forecast.date);
             infoText.setText(forecast.more.info);
             maxText.setText(forecast.temperature.max + "℃");
             minText.setText(forecast.temperature.min + "℃");
+            getCondIcon(Integer.parseInt(forecast.more.condCode),condIcon);
             forecastLayout.addView(view);
 
         }
@@ -396,6 +421,30 @@ public class WeatherActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void getCondIcon(int getCondIcomId,ImageView condview) {
+        if (getCondIcomId >= 100 && getCondIcomId < 200) {
+            condview.setImageResource(img[getCondIcomId - 100]);
+        } else if (getCondIcomId >= 200 && getCondIcomId < 300) {
+            switch (getCondIcomId) {
+                case 202:
+                    condview.setImageResource(R.drawable.ic202);
+                    break;
+                case 205:
+                    condview.setImageResource(R.drawable.ic205);
+                    break;
+                case 208:
+                    condview.setImageResource(R.drawable.ic208);
+                    break;
+            }
+        } else if (getCondIcomId >= 300 && getCondIcomId < 312) {
+            condview.setImageResource(img[getCondIcomId - 292]);
+        } else if (getCondIcomId == 501) {
+            condview.setImageResource(R.drawable.ic501);
+        } else {
+            condview.setImageResource(R.drawable.ic999);
+        }
     }
 
     @Override

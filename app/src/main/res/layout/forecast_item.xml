@@ -10,15 +10,28 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="2"
         android:textColor="#fff"/>
-
-    <TextView
-        android:id="@+id/info_text"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="#fff" />
+        >
+        <ImageView
+            android:id="@+id/img_cond_forecast_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:textColor="#fff" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/max_text"

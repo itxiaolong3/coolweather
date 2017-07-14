@@ -29,6 +29,7 @@ public class AutoUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +37,6 @@ public class AutoUpdateService extends Service {
                 updateBingPic();
             }
         }).start();
-        SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this);
         int savaRate = spref.getInt(keyUtils.SAVARATE, 1);
         LogUtil.d("TAG", "服务中的定时器设置值改为：" + savaRate);
         //间隔触发器
@@ -70,7 +70,6 @@ public class AutoUpdateService extends Service {
                 public void onFailure(Call call, IOException e) {
 
                 }
-
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String responseWeather_String = response.body().string();
@@ -106,5 +105,7 @@ public class AutoUpdateService extends Service {
             }
         });
     }
+
+
 
 }

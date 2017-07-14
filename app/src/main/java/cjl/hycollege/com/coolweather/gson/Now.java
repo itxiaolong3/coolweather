@@ -17,5 +17,7 @@ public class Now {
 
         @SerializedName("txt")
         public String info;
+        @SerializedName("code")
+        public String pic_code;
     }
 }

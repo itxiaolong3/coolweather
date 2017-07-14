@@ -18,6 +18,9 @@ public class Forecast {
     public class More {
         @SerializedName("txt_d")
         public String info;
+        //天气状态码
+        @SerializedName("code_d")
+        public String condCode;
     }
 
     public class Temperature {
