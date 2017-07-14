@@ -34,6 +34,7 @@ public class keyUtils {
      * 保存天气图标id码
      */
     public static String CONDIDCONID="condiconId";
+    public static String ADDRESS="http://guolin.tech/api/china/";
 
     /**
      * @param weatherId 传入的天气id

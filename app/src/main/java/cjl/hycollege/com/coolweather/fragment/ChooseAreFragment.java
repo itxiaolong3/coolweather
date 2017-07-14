@@ -26,6 +26,7 @@ import java.util.List;
 import cjl.hycollege.com.coolweather.R;
 import cjl.hycollege.com.coolweather.activity.MainActivity;
 import cjl.hycollege.com.coolweather.activity.WeatherActivity;
+import cjl.hycollege.com.coolweather.constant.keyUtils;
 import cjl.hycollege.com.coolweather.db.City;
 import cjl.hycollege.com.coolweather.db.County;
 import cjl.hycollege.com.coolweather.db.Province;
@@ -109,19 +110,11 @@ public class ChooseAreFragment extends Fragment {
                         intent.putExtra("weather_id",weatherId);
                         startActivity(intent);
                         getActivity().finish();
-                        /*SharedPreferences.Editor editor = PreferenceManager
-                                .getDefaultSharedPreferences(getActivity()).edit();
-                        editor.putString("weatherid", weatherId);
-                        editor.apply();*/
+
                     }else if (getActivity() instanceof WeatherActivity){
                         WeatherActivity activity= (WeatherActivity) getActivity();
                         activity.drawerLayout.closeDrawers();
                         activity.swipe_refresh.setRefreshing(true);
-                       /* Log.d("TAG","属于WeatherActivity传入的天气id="+weatherId);
-                        SharedPreferences.Editor editor = PreferenceManager
-                                .getDefaultSharedPreferences(activity).edit();
-                        editor.putString("weatherid", weatherId);
-                        editor.apply();*/
                         activity.requestWeather(weatherId," ",false);
 
                     }
@@ -160,7 +153,7 @@ public class ChooseAreFragment extends Fragment {
             listView.setSelection(0);
             currntLevel = LEVEL_PROVINCE;
         } else {//从网络上获取数据
-            String address = "http://guolin.tech/api/china";
+            String address = keyUtils.ADDRESS;
             queryFromServer(address, "province");
         }
     }
@@ -181,7 +174,7 @@ public class ChooseAreFragment extends Fragment {
             currntLevel=LEVEL_CITY;
         }else{
             int provinceCode=selectedProvince.getProvinceCode();
-            String address = "http://guolin.tech/api/china/"+provinceCode;
+            String address = keyUtils.ADDRESS+provinceCode;
             queryFromServer(address,"city");
         }
     }
@@ -204,7 +197,7 @@ public class ChooseAreFragment extends Fragment {
         }else{
             int provinceCode=selectedProvince.getProvinceCode();
             int cityCode=selectdeCity.getCityCode();
-            String address = "http://guolin.tech/api/china/"+provinceCode+"/"+cityCode;
+            String address = keyUtils.ADDRESS+provinceCode+"/"+cityCode;
             queryFromServer(address,"county");
         }
     }

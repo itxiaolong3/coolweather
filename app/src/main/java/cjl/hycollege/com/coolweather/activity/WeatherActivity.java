@@ -73,7 +73,9 @@ public class WeatherActivity extends AppCompatActivity {
     private LinearLayout forecastLayout;
 
     //AQI、pm2.5、舒适度、洗车、运动
-    private TextView aqiText, pm25Text, comfortText, carWashText, sportText;
+    private TextView aqiText, pm25Text, comfortText, carWashText, sportText,qurity_text;
+    //衣着，禽流感、旅游建议、紫外线
+    private TextView drsgText,fluText,travText,uvText;
     //下拉刷新
     public SwipeRefreshLayout swipe_refresh;
 
@@ -134,10 +136,16 @@ public class WeatherActivity extends AppCompatActivity {
         weatherInfoText = (TextView) findViewById(R.id.weather_info_text);
         forecastLayout = (LinearLayout) findViewById(R.id.forecast_layout);
         aqiText = (TextView) findViewById(R.id.aqi_text);
+        qurity_text= (TextView) findViewById(R.id.qurity_text);
         pm25Text = (TextView) findViewById(R.id.pm25_text);
         comfortText = (TextView) findViewById(R.id.comfort_text);
         carWashText = (TextView) findViewById(R.id.car_wash_text);
         sportText = (TextView) findViewById(R.id.sport_text);
+
+        drsgText= (TextView) findViewById(R.id.drsg_text);
+        fluText= (TextView) findViewById(R.id.flu_text);
+        travText= (TextView) findViewById(R.id.trav_text);
+        uvText= (TextView) findViewById(R.id.uv_text);
         //添加天气图标
         cond_img = (ImageView) findViewById(R.id.img_cond_icon);
         //下拉刷新
@@ -381,7 +389,6 @@ public class WeatherActivity extends AppCompatActivity {
         //获取图标id
         //String getCondIconId = weather.now.more.pic_code;
         int getCondIcomId = Integer.parseInt(weather.now.more.pic_code);
-        LogUtil.d("TAG", "get到的图标id=" + getCondIcomId);
         getCondIcon(getCondIcomId,cond_img);
 
         forecastLayout.removeAllViews();
@@ -404,6 +411,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         }
         if (weather.aqi != null) {
+            qurity_text.setText(weather.aqi.city.qurity);
             aqiText.setText(weather.aqi.city.aqi);
             pm25Text.setText(weather.aqi.city.pm25);
         }
@@ -411,9 +419,18 @@ public class WeatherActivity extends AppCompatActivity {
         String comfort = "舒适度：" + weather.suggestion.comfort.info;
         String carWash = "洗车指数：" + weather.suggestion.carWash.info;
         String sport = "运动建议：" + weather.suggestion.sport.info;
+        ////drsgText,fluText,travText,uvText
+        String drsgInfo="衣着情况："+weather.suggestion.drsg.brf+"\n"+weather.suggestion.drsg.info;
+        String fluInfo="流感引发："+weather.suggestion.flu.brf+"\n"+weather.suggestion.flu.info;
+        String travInfo="旅游建议："+weather.suggestion.trav.brf+"\n"+weather.suggestion.trav.info;
+        String uvInfo="紫外线："+weather.suggestion.uv.brf+"\n"+weather.suggestion.uv.info;
         comfortText.setText(comfort);
         carWashText.setText(carWash);
         sportText.setText(sport);
+        drsgText.setText(drsgInfo);
+        fluText.setText(fluInfo);
+        travText.setText(travInfo);
+        uvText.setText(uvInfo);
         if (weather != null && "ok".equals(weather.status)) {
             weathearLayout.setVisibility(View.VISIBLE);
         } else {

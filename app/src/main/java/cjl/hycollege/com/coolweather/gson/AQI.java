@@ -16,5 +16,7 @@ public class AQI {
 
         @SerializedName("pm25")
         public String pm25;
+        @SerializedName("qlty")
+        public String qurity;
     }
 }
