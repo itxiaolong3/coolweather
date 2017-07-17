@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.SplashAcitivy"
+            android:theme="@style/MyAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,14 +22,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.WeatherActivity" />
+        <activity android:name=".activity.MainActivity" />
+
 
         <service
             android:name=".service.AutoUpdateService"
             android:enabled="true"
-            android:exported="true"></service>
-        <receiver android:name=".service.AlarmReceiver"
+            android:exported="true" />
+
+        <receiver
+            android:name=".service.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity android:name=".activity.Guide"></activity>
     </application>
 
 </manifest>

@@ -1,1 +1,1 @@
-include ':app', ':test', ':toggleview'
+include ':app', ':account', ':selfview', ':selfview'

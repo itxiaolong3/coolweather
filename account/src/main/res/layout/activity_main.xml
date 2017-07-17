@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cjl.hycollege.com.account.SlideMeui xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xiaol="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    >
+
+        <!--菜单的-->
+        <include layout="@layout/layout_menu"/>
+        <!--主页面-->
+        <include layout="@layout/activity_main_content"/>
+
+</cjl.hycollege.com.account.SlideMeui>

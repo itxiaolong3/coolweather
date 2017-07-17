@@ -14,7 +14,7 @@ public class LogUtil {
     public static final int ERROR=5;
     public static final int NOTHING=6;
     //显示log的限制条件，按等级来显示,正式上线后可把level复制为nothing
-    public static final int level=VERBOSE;
+    public static final int level=NOTHING;
 
     public static void v(String tag,String msg){
         if (level<=VERBOSE){

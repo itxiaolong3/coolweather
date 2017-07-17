@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_list_time"
+        android:text="2017.6.20"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:paddingTop="3dp"/>
+    <TextView
+        android:id="@+id/tv_list_money"
+        android:background="#AFF5DE"
+        android:text="100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        android:paddingTop="3dp"
+        />
+    <EditText
+        android:id="@+id/tv_list_dec"
+
+        android:focusable="false"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="买东西了"
+        android:gravity="center"
+        android:textSize="20dp"
+       android:layout_weight="1"
+        android:lines="1"
+        android:paddingTop="3dp"/>
+
+</LinearLayout>
